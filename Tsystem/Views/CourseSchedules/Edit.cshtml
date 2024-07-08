@@ -1,0 +1,222 @@
+﻿@model Tsystem.Models.CourseSchedule
+
+@{
+    ViewBag.Title = "تحرير الدورة التدريبية";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- إضافة مكتبة jQuery و jQuery UI لتحديد التاريخ -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<style>
+    .form-container {
+        max-width: 600px; /* لضبط عرض الحاوية */
+        margin: 0 auto; /* لتوسيط النموذج */
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        position: relative; /* لتحديد موضع أيقونة التاريخ */
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+        .form-control.input-sm {
+            padding: 5px;
+            font-size: 0.875em;
+        }
+
+    .btn {
+        background-color: #5aa39b;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1em;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+        .btn:hover {
+            background-color: #68beb5;
+        }
+
+    .ui-datepicker-trigger {
+        position: absolute;
+        left: 10px;
+        top: 35px; /* ضبط الموضع بالنسبة لحقل الإدخال */
+        cursor: pointer;
+    }
+
+    .link-button {
+        background: none;
+        border: none;
+        color: #5aa39b;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 1em;
+        padding: 0;
+    }
+
+        .link-button:hover {
+            color: #68beb5;
+            text-decoration: none;
+        }
+
+    .text-danger {
+        color: #dc3545;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    h2 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    h4 {
+        color: #333;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<h2 style="text-align: center;">تحرير الدورة التدريبية</h2>
+
+<div class="form-container">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Course_ID)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Course_Title, "عنوان البرنامج التدريبي")
+                @Html.EditorFor(model => model.Course_Title, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                @Html.ValidationMessageFor(model => model.Course_Title, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, "الوصف")
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Language, "اللغة")
+                @Html.EditorFor(model => model.Language, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Date, "التاريخ")
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control input-sm datepicker" } })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Start_Time, "وقت البداية")
+                @Html.EditorFor(model => model.Start_Time, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                @Html.ValidationMessageFor(model => model.Start_Time, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.End_Time, "وقت النهاية")
+                @Html.EditorFor(model => model.End_Time, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                @Html.ValidationMessageFor(model => model.End_Time, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Course_Status, "حالة الدورة")
+                @Html.EditorFor(model => model.Course_Status, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                @Html.ValidationMessageFor(model => model.Course_Status, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Seats_Number, "عدد المقاعد")
+                @Html.EditorFor(model => model.Seats_Number, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                @Html.ValidationMessageFor(model => model.Seats_Number, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Course_Place, "مكان الدورة")
+                @Html.EditorFor(model => model.Course_Place, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                @Html.ValidationMessageFor(model => model.Course_Place, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.user_Type, "نوع المستخدم")
+                @Html.EditorFor(model => model.user_Type, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                @Html.ValidationMessageFor(model => model.user_Type, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Course_Type, "نوع الدورة")
+                @Html.EditorFor(model => model.Course_Type, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                @Html.ValidationMessageFor(model => model.Course_Type, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Trainer_Name, "اسم المدرب")
+                @Html.EditorFor(model => model.Trainer_Name, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                @Html.ValidationMessageFor(model => model.Trainer_Name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Certificate_ID, "نموذج الشهادة")
+                @Html.DropDownList("Certificate_ID", null, htmlAttributes: new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(model => model.Certificate_ID, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Classification_ID, "تصنيف الدورة")
+                @Html.DropDownList("Classification_ID", null, htmlAttributes: new { @class = "form-control input-sm" })
+                @Html.ValidationMessageFor(model => model.Classification_ID, "", new { @class = "text-danger" })
+            </div>
+
+            <button type="submit" class="btn">حفظ التعديلات</button>
+        </div>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("العودة إلى القائمة", "Index", null, new { @class = "link-button" })
+</div>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(function () {
+        $(".datepicker").datepicker({
+            dateFormat: "yy-mm-dd",
+            showOn: "button",
+            buttonImage: "https://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
+            buttonImageOnly: true,
+            buttonText: "Select date"
+        });
+    });
+</script>

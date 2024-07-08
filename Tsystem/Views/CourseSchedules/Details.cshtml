@@ -1,0 +1,163 @@
+﻿@model Tsystem.Models.CourseSchedule
+
+@{
+    ViewBag.Title = "تفاصيل الدورة التدريبية";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .details-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        direction: rtl; /* لضبط اتجاه النصوص من اليمين إلى اليسار */
+    }
+
+    .details-header {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .details-subheader {
+        color: #333;
+    }
+
+    .details-list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .details-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+        align-items: center; /* لضبط محاذاة العناصر عموديًا */
+    }
+
+        .details-row dt, .details-row dd {
+            margin: 0;
+            text-align: right;
+        }
+
+        .details-row dt {
+            font-weight: bold;
+            margin-left: 10px; /* لضبط المسافة بين العنوان والتفاصيل */
+            flex-basis: 40%; /* لضبط عرض العنوان */
+        }
+
+        .details-row dd {
+            flex-basis: 60%; /* لضبط عرض التفاصيل */
+            text-align: left; /* لضبط محاذاة التفاصيل إلى اليسار */
+        }
+
+    .form-actions {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .btn {
+        background-color: #5aa39b;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1em;
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+    }
+
+        .btn:hover {
+            background-color: #68beb5;
+        }
+
+    .link-button {
+        background: none;
+        border: none;
+        color: #5aa39b;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 1em;
+        padding: 0;
+    }
+
+        .link-button:hover {
+            color: #68beb5;
+            text-decoration: none;
+        }
+</style>
+
+<h2 class="details-header">تفاصيل الدورة التدريبية</h2>
+
+<div class="details-container">
+    <h4 class="details-subheader">معلومات الدورة التدريبية</h4>
+    <hr />
+    <div class="details-list">
+        <div class="details-row">
+            <dt>عنوان البرنامج التدريبي</dt>
+            <dd>@Html.DisplayFor(model => model.Course_Title)</dd>
+        </div>
+        <div class="details-row">
+            <dt>الوصف</dt>
+            <dd>@Html.DisplayFor(model => model.Description)</dd>
+        </div>
+        <div class="details-row">
+            <dt>اللغة</dt>
+            <dd>@Html.DisplayFor(model => model.Language)</dd>
+        </div>
+        <div class="details-row">
+            <dt>التاريخ</dt>
+            <dd>@Html.DisplayFor(model => model.Date)</dd>
+        </div>
+        <div class="details-row">
+            <dt>وقت البداية</dt>
+            <dd>@Html.DisplayFor(model => model.Start_Time)</dd>
+        </div>
+        <div class="details-row">
+            <dt>وقت النهاية</dt>
+            <dd>@Html.DisplayFor(model => model.End_Time)</dd>
+        </div>
+        <div class="details-row">
+            <dt>حالة الدورة</dt>
+            <dd>@Html.DisplayFor(model => model.Course_Status)</dd>
+        </div>
+        <div class="details-row">
+            <dt>عدد المقاعد</dt>
+            <dd>@Html.DisplayFor(model => model.Seats_Number)</dd>
+        </div>
+        <div class="details-row">
+            <dt>مكان الدورة</dt>
+            <dd>@Html.DisplayFor(model => model.Course_Place)</dd>
+        </div>
+        <div class="details-row">
+            <dt>نوع المستخدم</dt>
+            <dd>@Html.DisplayFor(model => model.user_Type)</dd>
+        </div>
+        <div class="details-row">
+            <dt>نوع الدورة</dt>
+            <dd>@Html.DisplayFor(model => model.Course_Type)</dd>
+        </div>
+        <div class="details-row">
+            <dt>اسم المدرب</dt>
+            <dd>@Html.DisplayFor(model => model.Trainer_Name)</dd>
+        </div>
+        <div class="details-row">
+            <dt>نموذج الشهادة</dt>
+            <dd>@Html.DisplayFor(model => model.CertificateTemplate.Certificate_Template)</dd>
+        </div>
+        <div class="details-row">
+            <dt>تصنيف الدورة</dt>
+            <dd>@Html.DisplayFor(model => model.CourseClassification.Classification_Name)</dd>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        @Html.ActionLink("تعديل", "Edit", new { id = Model.Course_ID }, new { @class = "btn" }) |
+        @Html.ActionLink("العودة إلى القائمة", "Index", null, new { @class = "link-button" })
+    </div>
+</div>

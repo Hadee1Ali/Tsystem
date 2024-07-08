@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Training System</title>
+    @*@Styles.Render("~/Content/css")*@ @*comment*@
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        @@import url('https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+        * {
+            font-family: "Tajawal", sans-serif;
+        }
+
+        .wrapper {
+            font-family: "Tajawal", sans-serif;
+            display: grid;
+            grid-template-columns: 2fr .4fr;
+            grid-template-rows: 60px;
+            gap: 2px;
+        }
+
+        h1,
+        h2 {
+            color: #000;
+            text-align: center;
+            margin: 10px;
+        }
+
+        h3,
+        h4 {
+            color: #404040;
+        }
+
+        i {
+            color: #68beb5;
+        }
+
+        .header {
+            background-color: #F8F9FA;
+            grid-column: 1/2;
+            grid-row: 1/2;
+        }
+
+            .header img {
+                width: 60px;
+                height: auto;
+                float: right;
+            }
+
+            .header a i,
+            .header span {
+                float: left;
+                margin-top: 10px;
+                padding: 10px;
+                color: #8b8b8b;
+            }
+
+        .nav {
+            background-color: #F8F9FA;
+            grid-column: 2/3;
+            grid-row: 1/3;
+            height: 100vh;
+        }
+
+            .nav ul {
+                list-style-type: none;
+                padding: 10px;
+            }
+
+                .nav ul li {
+                    padding: 10px 0;
+                    float: right;
+                }
+
+                    .nav ul li a {
+                        text-decoration: none;
+                        color: #333;
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    .nav ul li :hover {
+                        color: #5aa39b;
+                    }
+
+                    .nav ul li a i {
+                        padding-left: 10px;
+                        color: #68beb5;
+                    }
+
+        .main {
+            grid-column: 1/2;
+            grid-row: 2/3;
+            margin: 10px;
+            direction: rtl;
+        }
+
+            .main button {
+                background-color: #5aa39b;
+                color: white;
+                border-radius: 10px;
+                border: none;
+                padding-right: 30px;
+                padding-left: 30px;
+            }
+
+                .main button:hover {
+                    background-color: #68beb5;
+                }
+    </style>
+
+</head>
+<body class="wrapper">
+    <header class="header">
+        <img src="~/Content/logo.PNG" alt="Logo">
+        <a href="#"><i class="fas fa-bell"></i></a>
+        <a href="#"><i class="fas fa-sign-out-alt"></i></a>
+        <span>مرحبا بك </span>
+    </header>
+    <nav class="nav">
+        <h2>نظام التدريب</h2>
+        <ul>
+            <li>@Html.Raw($"<a href='{Url.Action("Index", "Admin")}' class='body'><span>الصفحة الرئيسية</span> <i class='fas fa-home'></i></a>")</li>
+            <li>@Html.Raw($"<a href='{Url.Action("Index", "CourseSchedules")}' class='body'>جدول الدورات<i class='fas fa-calendar-alt'></i></a>")</li>
+            <li>@Html.Raw($"<a href='{Url.Action("Create", "CourseSchedules")}' class='body'>إضافة دورة تدريبية<i class='fas fa-plus-circle'></i></a>")</li>
+            <li><a href="#"><span>طلبات الدورات</span> <i class="fas fa-file-alt"></i></a></li>
+            <li>@Html.Raw($"<a href='{Url.Action("Index", "Registered_in_the_course")}' class='body'>متابعة الحضور<i class='fas fa-check-circle'></i></a>")</li>
+            <li><a href="#"><span>إدارة الصلاحيات</span> <i class="fas fa-user-shield"></i></a></li>
+            <li><a href="#"><span>قوالب الشهادات</span> <i class="fas fa-certificate"></i></a></li>
+            <li><a href="#"><span>إدارة التصنيفات</span> <i class="fas fa-tags"></i></a></li>
+            <li>@Html.Raw($"<a href='{Url.Action("ReportsAndStatistics_for_SupportTickets", "Home")}' class='body'>التقارير و الاحصائيات<i class='fas fa-chart-bar'></i></a>")</li>
+            <li><a href="#"><span>الدورات الخارجية</span> <i class="fas fa-external-link-alt"></i></a></li>
+            <li>@Html.Raw($"<a href='{Url.Action("TicketManagement", "Home")}' class='body'>إدارة تذاكر الدعم<i class='fas fa-ticket-alt'></i></a>")</li>
+
+        </ul>
+    </nav>
+    <article class="main">
+        @RenderBody()
+    </article>
+
+
+
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>

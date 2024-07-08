@@ -1,0 +1,155 @@
+﻿@model IEnumerable<Tsystem.Models.Registered_in_the_course>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .page-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .search-form {
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: #f1f1f1;
+        border-radius: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+            vertical-align: middle; /* لضمان توسيط المحتوى عموديًا */
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f9f9f9;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        margin-right: 5px;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: none;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: white;
+        border: none;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        color: white;
+        border: none;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+    }
+
+    .icon {
+        width: 20px;
+        height: 20px;
+        display: block;
+        margin: auto; /* لضمان توسيط الأيقونة أفقيًا */
+    }
+
+    .email-icon-container {
+        padding: 0; /* إزالة الحشو من الخلية */
+        text-align: center; /* توسيط الأيقونة أفقيًا */
+    }
+</style>
+
+<h2 class="page-title">أسماء المسجلين في الدورة</h2>
+
+<div class="search-form">
+    <form method="get" action="@Url.Action("Index")">
+        <div class="form-group">
+            <label for="searchName">اسم المستخدم:</label>
+            <input type="text" id="searchName" name="searchName" class="form-control" value="@ViewBag.SearchName" />
+        </div>
+        <div class="form-group">
+            <label for="searchCourse">اسم الدورة:</label>
+            <input type="text" id="searchCourse" name="searchCourse" class="form-control" value="@ViewBag.SearchCourse" />
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="بحث" />
+            <a href="@Url.Action("Index")" class="btn btn-secondary">إعادة ضبط</a>
+        </div>
+    </form>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>الاسم عربي</th>
+            <th>الاسم إنجليزي</th>
+            <th>الرقم الجامعي</th>
+            <th>القسم</th>
+            <th>الدرجة العلمية</th>
+            <th>النوع</th>
+            <th>رقم الهاتف</th>
+            <th>البريد</th>
+            <th>إرسال بريد</th>
+            <th>حضور</th>
+            <th>تقييم</th>
+            <th>شهادة</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.User.Ar_Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.En_name)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.User_ID)</td> <!-- Assuming User_ID is the university number -->
+                <td>@Html.DisplayFor(modelItem => item.User.Section)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.Degree)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.gender)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.mobile)</td>
+                <td>@Html.DisplayFor(modelItem => item.User.email)</td>
+                <td class="email-icon-container">
+                    <a href="mailto:@item.User.email">
+                        <img src="~/Content/email-icon.png" class="icon" alt="إرسال بريد" />
+                    </a>
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Attendance_Status)</td>
+                <td>@Html.DisplayFor(modelItem => item.Evaluation_Status)</td>
+                <td>@Html.DisplayFor(modelItem => item.Certificate_Status)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("إنشاء جديد", "Create", null, new { @class = "btn btn-primary" })
+</p>
